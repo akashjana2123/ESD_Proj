@@ -1,10 +1,1085 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Study2PointO</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f5ff',
+                            100: '#ecdcfc',
+                            200: '#d0dbff',
+                            300: '#abc0ff',
+                            400: '#7f9aff',
+                            500: '#636363',
+                            600: '#4a5bd6',
+                            700: '#3e4cc5',
+                            800: '#3741a1',
+                            900: '#313a80',
+                        },
+                        secondary: '#8392ab',
+                        success: '#2dce89',
+                        danger: '#f5365c',
+                        warning: '#fb6340',
+                        info: '#11cdef',
+                        dark: '#344767',
+                        light: '#f8f9fa',
+                        gray: {
+                            100: '#f8f9fa',
+                            200: '#e9ecef',
+                            300: '#dee2e6',
+                            400: '#ced4da',
+                            500: '#adb5bd',
+                            600: '#6c757d',
+                            700: '#495057',
+                            800: '#343a40',
+                            900: '#212529'
+                        },
+                        customHover: '#906fd1'
+                    },
+                    boxShadow: {
+                        'soft': '0 0.3125rem 0.625rem 0 rgba(0, 0, 0, 0.12)',
+                        'soft-lg': '0 1rem 2rem rgba(0, 0, 0, 0.15)',
+                        'card': '0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)'
+                    },
+                    borderRadius: {
+                        'lg': '0.75rem',
+                        'xl': '1rem'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #636363;
+            --secondary: #8392ab;
+            --success: #2dce89;
+            --danger: #f5365c;
+            --warning: #fb6340;
+            --info: #11cdef;
+            --dark: #344767;
+            --light: #f8f9fa;
+            --sidenav-gradient-start: #828282;
+            --sidenav-gradient-end: #424242;
+            --custom-hover: #906fd1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            color: #6C757D;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .sidenav {
+            background: linear-gradient(180deg, var(--sidenav-gradient-start) 0%, var(--sidenav-gradient-end) 100%);
+            width: 250px;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-link {
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.375rem;
+        }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 0;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+        }
+
+        .progress-bar {
+            height: 0.5rem;
+            border-radius: 1rem;
+            transition: width 1.5s ease;
+        }
+
+        .icon-shape {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+        }
+
+        .navbar {
+            height: 70px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .chart-container {
+            height: 300px;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* BUTTON HOVER EFFECT */
+        .btn {
+            transition: all 0.2s ease;
+        }
+
+        /* All buttons hover effect */
+        button:hover:not(.nav-link):not(.text-button),
+        .btn:hover,
+        .btn-hover:hover,
+        .button-hover:hover {
+            background-color: var(--custom-hover) !important;
+            border-color: var(--custom-hover) !important;
+            color: white !important;
+        }
+
+        /* Text links hover effect */
+        a.text-link:hover,
+        .text-hover:hover,
+        .text-button:hover {
+            color: var(--custom-hover) !important;
+        }
+
+        .text-button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        @media (max-width: 992px) {
+            .sidenav {
+                position: fixed;
+                left: -250px;
+                height: 100vh;
+            }
+
+            .sidenav.active {
+                left: 0;
+            }
+
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: 90;
+            }
+
+            .sidenav.active+.overlay {
+                display: block;
+            }
+        }
+
+        .color-preview {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: white;
+            box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .settings-panel.active {
+            right: 0;
+        }
+
+        .color-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .color-input {
+            flex: 1;
+            margin-left: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .theme-preset {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            margin: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .theme-preset:hover,
+        .theme-preset.active {
+            transform: scale(1.1);
+            border-color: #636363;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<body>
-    <h1>Welcome to Home</h1>
+
+<body class="min-h-screen flex bg-gray-100">
+    <!-- Side Navigation -->
+    <aside class="sidenav fixed lg:relative text-white flex flex-col">
+        <div class="p-6 flex items-center">
+            <div class="bg-white p-1.5 rounded-lg mr-3">
+
+                <img src="Untitled.png" alt="Study2PointO Logo" width="40" height="40" class="rounded-lg">
+            </div>
+            <h1 class="text-xl font-bold">Study2PointO</h1>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 overflow-y-auto py-4 px-4">
+            <div class="mb-6">
+                <h2 class="text-xs uppercase tracking-wider opacity-75 px-3 mb-3">Main</h2>
+                <a href="#" class="nav-link active flex items-center py-3 px-4 mb-1 text-white">
+                    <i class="fas fa-chart-pie mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Dashboard</span>
+                </a>
+                <a href="#" class="nav-link flex items-center py-3 px-4 mb-1 text-white opacity-75 hover:opacity-100">
+                    <i class="fas fa-tachometer-alt mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Metrics</span>
+                </a>
+                <a href="#" class="nav-link flex items-center py-3 px-4 mb-1 text-white opacity-75 hover:opacity-100">
+                    <i class="fas fa-map-marker-alt mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Maps</span>
+                </a>
+                <a href="#" class="nav-link flex items-center py-3 px-4 mb-1 text-white opacity-75 hover:opacity-100">
+                    <i class="fas fa-table mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Tables</span>
+                </a>
+                <a href="#" class="nav-link flex items-center py-3 px-4 mb-1 text-white opacity-75 hover:opacity-100">
+                    <i class="fas fa-wallet mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Billing</span>
+                </a>
+            </div>
+
+            <div class="mb-6">
+                <h2 class="text-xs uppercase tracking-wider opacity-75 px-3 mb-3">Account</h2>
+                <a href="#" class="nav-link flex items-center py-3 px-4 mb-1 text-white opacity-75 hover:opacity-100">
+                    <i class="fas fa-user mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Profile</span>
+                </a>
+                <a href="#" class="nav-link flex items-center py-3 px-4 mb-1 text-white opacity-75 hover:opacity-100">
+                    <i class="fas fa-cog mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Settings</span>
+                </a>
+                <a href="#" class="nav-link flex items-center py-3 px-4 mb-1 text-white opacity-75 hover:opacity-100">
+                    <i class="fas fa-sign-out-alt mr-3 text-sm"></i>
+                    <span class="text-sm font-medium">Logout</span>
+                </a>
+            </div>
+
+            <div class="px-4">
+                <div class="bg-black bg-opacity-20 rounded-xl p-4 text-center">
+                    <div
+                        class="bg-primary-500 text-white text-xs font-bold rounded-full w-8 h-8 flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="text-sm font-bold text-white mb-1">Upgrade to PRO</h3>
+                    <p class="text-xs opacity-75 mb-3">Get access to all features</p>
+                    <button
+                        class="bg-white text-primary-500 text-xs font-bold py-2 px-4 rounded-lg w-full">Upgrade</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Footer -->
+        <div class="p-4 text-center text-xs opacity-75">
+            <p>Study2PointO</p>
+            <p class="mt-1">© 2023 Creative Tim</p>
+        </div>
+    </aside>
+
+    <div class="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-h-screen">
+        <!-- Top Navigation -->
+        <header class="navbar bg-white flex justify-between items-center px-6 sticky top-0 z-50 shadow-sm">
+            <div class="flex items-center">
+                <button id="menu-toggle" class="lg:hidden text-gray-600 mr-4">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="relative w-64 hidden lg:block">
+                    <input type="text" placeholder="Search here..."
+                        class="w-full bg-gray-100 rounded-lg py-2.5 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white text-sm">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <div class="relative mr-4">
+                    <button class="p-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-bell text-lg"></i>
+                    </button>
+                    <span
+                        class="absolute top-0 right-0 bg-danger text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                </div>
+
+                <div class="relative mr-4">
+                    <button id="settings-toggle" class="p-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-cog text-lg"></i>
+                    </button>
+                </div>
+
+                <div class="flex items-center">
+                    <img src="Untitled.png" alt="User" class="user-avatar mr-3">
+                    <div class="hidden md:block">
+                        <p class="text-sm font-semibold">ADMINATORL</p>
+                        <p class="text-xs text-gray-500">Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-6">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800">Dashboard</h1>
+                    <p class="text-gray-600 mt-1">Welcome back, John! Here's what's happening today.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <button class="bg-primary-500 text-white px-4 py-2.5 rounded-lg text-sm font-semibold shadow-md">
+                        <i class="fas fa-plus mr-2"></i> New Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="dashboard-grid mb-8">
+                <!-- Traffic Card -->
+                <div class="card bg-white rounded-xl shadow-soft p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium mb-1">Total Traffic</h3>
+                            <p class="text-2xl font-bold text-gray-800">350,897</p>
+                        </div>
+                        <div class="icon-shape bg-purple-100 text-purple-500">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex items-center">
+                            <span class="text-success text-sm font-semibold"><i class="fas fa-arrow-up mr-1"></i>
+                                3.48%</span>
+                            <span class="text-gray-500 text-sm ml-2">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New Users Card -->
+                <div class="card bg-white rounded-xl shadow-soft p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium mb-1">New Users</h3>
+                            <p class="text-2xl font-bold text-gray-800">2,356</p>
+                        </div>
+                        <div class="icon-shape bg-purple-100 text-purple-500">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex items-center">
+                            <span class="text-danger text-sm font-semibold"><i class="fas fa-arrow-down mr-1"></i>
+                                2.12%</span>
+                            <span class="text-gray-500 text-sm ml-2">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sales Card -->
+                <div class="card bg-white rounded-xl shadow-soft p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium mb-1">Recruitment</h3>
+                            <p class="text-2xl font-bold text-gray-800">924</p>
+                        </div>
+                        <div class="icon-shape bg-purple-100 text-purple-500">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex items-center">
+                            <span class="text-success text-sm font-semibold"><i class="fas fa-arrow-up mr-1"></i>
+                                12.04%</span>
+                            <span class="text-gray-500 text-sm ml-2">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Card -->
+                <div class="card bg-white rounded-xl shadow-soft p-5">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium mb-1">Performance</h3>
+                            <p class="text-2xl font-bold text-gray-800">49.65%</p>
+                        </div>
+                        <div class="icon-shape bg-purple-100 text-purple-500">
+                            <i class="fas fa-percent"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <div class="flex items-center">
+                            <span class="text-success text-sm font-semibold"><i class="fas fa-arrow-up mr-1"></i>
+                                5.72%</span>
+                            <span class="text-gray-500 text-sm ml-2">Since last month</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Revenue Chart -->
+                <div class="card bg-white rounded-xl shadow-soft p-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                        <h2 class="text-lg font-semibold text-gray-800">Revenue</h2>
+                        <div class="flex mt-2 md:mt-0">
+                            <button
+                                class="text-xs px-3 py-1.5 rounded-l-lg bg-primary-500 text-white font-medium">Month</button>
+                            <button
+                                class="text-xs px-3 py-1.5 bg-white text-gray-600 font-medium border border-l-0 rounded-r-lg">Week</button>
+                        </div>
+                    </div>
+                    <div class="chart-container bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4">
+                        <div class="flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <div
+                                    class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-chart-line text-2xl text-purple-500"></i>
+                                </div>
+                                <h3 class="text-lg font-semibold text-gray-700 mb-1">Revenue Chart</h3>
+                                <p class="text-gray-500 text-sm max-w-xs">Visual representation of revenue data will
+                                    appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Traffic Sources -->
+                <div class="card bg-white rounded-xl shadow-soft p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-lg font-semibold text-gray-800">Traffic Sources</h2>
+                        <button class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-600">Direct</span>
+                                <span class="text-sm font-semibold">45%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full">
+                                <div class="progress-bar bg-primary-500" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-600">Social Media</span>
+                                <span class="text-sm font-semibold">30%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full">
+                                <div class="progress-bar bg-success" style="width: 30%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-600">Referral</span>
+                                <span class="text-sm font-semibold">15%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full">
+                                <div class="progress-bar bg-warning" style="width: 15%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm text-gray-600">Organic Search</span>
+                                <span class="text-sm font-semibold">10%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full">
+                                <div class="progress-bar bg-info" style="width: 10%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tables and Recent Activity -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Recent Activity -->
+                <div class="card bg-white rounded-xl shadow-soft p-6">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-6">Recent Activity</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="mr-4">
+                                <div class="icon-shape bg-purple-100 text-purple-500">
+                                    <i class="fas fa-file-invoice"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800">New order #42332</h3>
+                                <p class="text-gray-600 text-sm">John Doe placed a new order</p>
+                                <p class="text-gray-500 text-xs mt-1">3 minutes ago</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="mr-4">
+                                <div class="icon-shape bg-purple-100 text-purple-500">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800">New user registered</h3>
+                                <p class="text-gray-600 text-sm">Jane Smith joined the platform</p>
+                                <p class="text-gray-500 text-xs mt-1">1 hour ago</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="mr-4">
+                                <div class="icon-shape bg-purple-100 text-purple-500">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800">Order completed</h3>
+                                <p class="text-gray-600 text-sm">Order #42328 has been completed</p>
+                                <p class="text-gray-500 text-xs mt-1">2 hours ago</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="mr-4">
+                                <div class="icon-shape bg-purple-100 text-purple-500">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-gray-800">Server alert</h3>
+                                <p class="text-gray-600 text-sm">High CPU usage detected</p>
+                                <p class="text-gray-500 text-xs mt-1">5 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Table -->
+                <div class="card bg-white rounded-xl shadow-soft p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-lg font-semibold text-gray-800">Projects</h2>
+                        <button class="text-primary-500 text-sm font-semibold text-button text-hover">
+                            View all <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                                <tr class="border-b">
+                                    <th
+                                        class="text-left text-xs text-gray-600 font-medium uppercase tracking-wider py-3 px-4">
+                                        Project</th>
+                                    <th
+                                        class="text-left text-xs text-gray-600 font-medium uppercase tracking-wider py-3 px-4">
+                                        Budget</th>
+                                    <th
+                                        class="text-left text-xs text-gray-600 font-medium uppercase tracking-wider py-3 px-4">
+                                        Status</th>
+                                    <th
+                                        class="text-left text-xs text-gray-600 font-medium uppercase tracking-wider py-3 px-4">
+                                        Completion</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="icon-shape bg-purple-100 text-purple-500 rounded-lg p-2 mr-3">
+                                                <i class="fas fa-laptop"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-800">Argon Design System</p>
+                                                <p class="text-xs text-gray-500">Updated 2 hrs ago</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm text-gray-600">$2,500</td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Completed</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                                <div class="bg-success h-2 rounded-full" style="width: 100%"></div>
+                                            </div>
+                                            <span class="text-xs text-gray-600">100%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="icon-shape bg-purple-100 text-purple-500 rounded-lg p-2 mr-3">
+                                                <i class="fas fa-globe"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-800">Angular Now UI Kit</p>
+                                                <p class="text-xs text-gray-500">Updated 4 hrs ago</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm text-gray-600">$1,800</td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Pending</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                                <div class="bg-warning h-2 rounded-full" style="width: 60%"></div>
+                                            </div>
+                                            <span class="text-xs text-gray-600">60%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="icon-shape bg-purple-100 text-purple-500 rounded-lg p-2 mr-3">
+                                                <i class="fas fa-mobile-alt"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-800">Black Dashboard</p>
+                                                <p class="text-xs text-gray-500">Updated yesterday</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm text-gray-600">$3,150</td>
+                                    <td class="py-4 px-4">
+                                        <span
+                                            class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Delayed</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                                <div class="bg-danger h-2 rounded-full" style="width: 35%"></div>
+                                            </div>
+                                            <span class="text-xs text-gray-600">35%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="icon-shape bg-purple-100 text-purple-500 rounded-lg p-2 mr-3">
+                                                <i class="fas fa-paint-brush"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-800">React Material Dashboard
+                                                </p>
+                                                <p class="text-xs text-gray-500">Last week</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="py-4 px-4 text-sm text-gray-600">$4,400</td>
+                                    <td class="py-4 px-4">
+                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">On
+                                            Schedule</span>
+                                    </td>
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center">
+                                            <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                                <div class="bg-primary-500 h-2 rounded-full" style="width: 75%"></div>
+                                            </div>
+                                            <span class="text-xs text-gray-600">75%</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white border-t py-6 px-6">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-sm text-gray-600">
+                        © 2023 <a href="#" class="text-primary-500 font-medium text-link">Creative Tim</a>
+                    </p>
+                    <p class="text-xs text-gray-500 mt-1">
+                        Made with <i class="fas fa-heart text-danger mx-1"></i> for a better web
+                    </p>
+                </div>
+                <div class="flex flex-wrap">
+                    <a href="#" class="text-sm text-gray-600 mr-4 mb-2 md:mb-0 text-link">About Us</a>
+                    <a href="#" class="text-sm text-gray-600 mr-4 mb-2 md:mb-0 text-link">Blog</a>
+                    <a href="#" class="text-sm text-gray-600 mr-4 mb-2 md:mb-0 text-link">License</a>
+                    <a href="#" class="text-sm text-gray-600 text-link">Contact</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel" id="settings-panel">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-bold text-gray-800">Theme Customization</h3>
+                <button id="close-settings" class="text-gray-500 hover:text-gray-700 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mb-8">
+                <h4 class="text-lg font-semibold mb-4">Preset Themes</h4>
+                <div class="preset-grid">
+                    <div class="theme-preset active" data-primary="#636363" data-secondary="#8392ab"
+                        data-success="#2dce89" data-danger="#f5365c" data-warning="#fb6340" data-info="#11cdef"
+                        data-dark="#344767" style="background: linear-gradient(135deg, #636363 50%, #8392ab 50%);">
+                    </div>
+                    <div class="theme-preset" data-primary="#3498db" data-secondary="#2ecc71" data-success="#1abc9c"
+                        data-danger="#e74c3c" data-warning="#f39c12" data-info="#9b59b6" data-dark="#2c3e50"
+                        style="background: linear-gradient(135deg, #3498db 50%, #2ecc71 50%);"></div>
+                    <div class="theme-preset" data-primary="#9b59b6" data-secondary="#34495e" data-success="#27ae60"
+                        data-danger="#c0392b" data-warning="#d35400" data-info="#2980b9" data-dark="#16a085"
+                        style="background: linear-gradient(135deg, #9b59b6 50%, #34495e 50%);"></div>
+                    <div class="theme-preset" data-primary="#e74c3c" data-secondary="#f39c12" data-success="#16a085"
+                        data-danger="#c0392b" data-warning="#d35400" data-info="#8e44ad" data-dark="#2c3e50"
+                        style="background: linear-gradient(135deg, #e74c3c 50%, #f39c12 50%);"></div>
+                    <div class="theme-preset" data-primary="#1abc9c" data-secondary="#2c3e50" data-success="#3498db"
+                        data-danger="#e74c3c" data-warning="#f1c40f" data-info="#9b59b6" data-dark="#16a085"
+                        style="background: linear-gradient(135deg, #1abc9c 50%, #2c3e50 50%);"></div>
+                    <div class="theme-preset" data-primary="#8e44ad" data-secondary="#d35400" data-success="#27ae60"
+                        data-danger="#c0392b" data-warning="#f39c12" data-info="#3498db" data-dark="#2c3e50"
+                        style="background: linear-gradient(135deg, #8e44ad 50%, #d35400 50%);"></div>
+                    <div class="theme-preset" data-primary="#2980b9" data-secondary="#16a085" data-success="#f1c40f"
+                        data-danger="#e74c3c" data-warning="#d35400" data-info="#9b59b6" data-dark="#34495e"
+                        style="background: linear-gradient(135deg, #2980b9 50%, #16a085 50%);"></div>
+                    <div class="theme-preset" data-primary="#d35400" data-secondary="#2c3e50" data-success="#27ae60"
+                        data-danger="#c0392b" data-warning="#f39c12" data-info="#3498db" data-dark="#8e44ad"
+                        style="background: linear-gradient(135deg, #d35400 50%, #2c3e50 50%);"></div>
+                </div>
+            </div>
+
+            <h4 class="text-lg font-semibold mb-4">Custom Colors</h4>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Primary Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="primary-preview" style="background-color: var(--primary);"></div>
+                    <input type="text" id="primary-color" class="color-input" value="#636363" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Secondary Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="secondary-preview" style="background-color: var(--secondary);"></div>
+                    <input type="text" id="secondary-color" class="color-input" value="#8392ab" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Success Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="success-preview" style="background-color: var(--success);"></div>
+                    <input type="text" id="success-color" class="color-input" value="#2dce89" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Danger Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="danger-preview" style="background-color: var(--danger);"></div>
+                    <input type="text" id="danger-color" class="color-input" value="#f5365c" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Warning Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="warning-preview" style="background-color: var(--warning);"></div>
+                    <input type="text" id="warning-color" class="color-input" value="#fb6340" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Info Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="info-preview" style="background-color: var(--info);"></div>
+                    <input type="text" id="info-color" class="color-input" value="#11cdef" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Dark Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="dark-preview" style="background-color: var(--dark);"></div>
+                    <input type="text" id="dark-color" class="color-input" value="#344767" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Button Hover Color</label>
+                <div class="color-option">
+                    <div class="color-preview" id="hover-preview" style="background-color: var(--custom-hover);"></div>
+                    <input type="text" id="hover-color" class="color-input" value="#906fd1" placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm font-medium text-gray-700 mb-2">Sidebar Gradient</label>
+                <div class="color-option">
+                    <div class="color-preview" id="gradient-start-preview"
+                        style="background-color: var(--sidenav-gradient-start);"></div>
+                    <input type="text" id="gradient-start-color" class="color-input" value="#828282"
+                        placeholder="#hexcode">
+                </div>
+                <div class="color-option mt-2">
+                    <div class="color-preview" id="gradient-end-preview"
+                        style="background-color: var(--sidenav-gradient-end);"></div>
+                    <input type="text" id="gradient-end-color" class="color-input" value="#424242"
+                        placeholder="#hexcode">
+                </div>
+            </div>
+
+            <div class="flex justify-between mt-8">
+                <button id="reset-colors" class="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg">
+                    Reset to Default
+                </button>
+                <button id="apply-colors" class="px-4 py-2 bg-primary-500 text-white rounded-lg">
+                    Apply Changes
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle mobile menu
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.querySelector('.sidenav').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.querySelector('.overlay').addEventListener('click', function () {
+            document.querySelector('.sidenav').classList.remove('active');
+        });
+
+        // Animate progress bars on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+        });
+
+        // Theme customization functionality
+        const settingsToggle = document.getElementById('settings-toggle');
+        const settingsPanel = document.getElementById('settings-panel');
+        const closeSettings = document.getElementById('close-settings');
+
+        settingsToggle.addEventListener('click', function () {
+            settingsPanel.classList.toggle('active');
+        });
+
+        closeSettings.addEventListener('click', function () {
+            settingsPanel.classList.remove('active');
+        });
+
+        // Color input elements
+        const colorInputs = [
+            { id: 'primary-color', var: '--primary', preview: 'primary-preview' },
+            { id: 'secondary-color', var: '--secondary', preview: 'secondary-preview' },
+            { id: 'success-color', var: '--success', preview: 'success-preview' },
+            { id: 'danger-color', var: '--danger', preview: 'danger-preview' },
+            { id: 'warning-color', var: '--warning', preview: 'warning-preview' },
+            { id: 'info-color', var: '--info', preview: 'info-preview' },
+            { id: 'dark-color', var: '--dark', preview: 'dark-preview' },
+            { id: 'hover-color', var: '--custom-hover', preview: 'hover-preview' },
+            { id: 'gradient-start-color', var: '--sidenav-gradient-start', preview: 'gradient-start-preview' },
+            { id: 'gradient-end-color', var: '--sidenav-gradient-end', preview: 'gradient-end-preview' }
+        ];
+
+        // Apply color changes
+        document.getElementById('apply-colors').addEventListener('click', function () {
+            colorInputs.forEach(input => {
+                const colorValue = document.getElementById(input.id).value;
+                if (isValidHex(colorValue)) {
+                    document.documentElement.style.setProperty(input.var, colorValue);
+                    document.getElementById(input.preview).style.backgroundColor = colorValue;
+                }
+            });
+        });
+
+        // Update preview when typing
+        colorInputs.forEach(input => {
+            const inputElement = document.getElementById(input.id);
+            inputElement.addEventListener('input', function () {
+                const colorValue = this.value;
+                if (isValidHex(colorValue)) {
+                    document.getElementById(input.preview).style.backgroundColor = colorValue;
+                }
+            });
+        });
+
+        // Reset to default colors
+        document.getElementById('reset-colors').addEventListener('click', function () {
+            const defaultColors = {
+                '--primary': '#636363',
+                '--secondary': '#8392ab',
+                '--success': '#2dce89',
+                '--danger': '#f5365c',
+                '--warning': '#fb6340',
+                '--info': '#11cdef',
+                '--dark': '#344767',
+                '--custom-hover': '#906fd1',
+                '--sidenav-gradient-start': '#828282',
+                '--sidenav-gradient-end': '#424242'
+            };
+
+            Object.entries(defaultColors).forEach(([key, value]) => {
+                document.documentElement.style.setProperty(key, value);
+            });
+
+            colorInputs.forEach(input => {
+                const inputElement = document.getElementById(input.id);
+                inputElement.value = defaultColors[input.var];
+                document.getElementById(input.preview).style.backgroundColor = defaultColors[input.var];
+            });
+
+            // Reset preset selection
+            document.querySelectorAll('.theme-preset').forEach(preset => {
+                preset.classList.remove('active');
+            });
+            document.querySelector('.theme-preset').classList.add('active');
+        });
+
+        // Preset themes
+        document.querySelectorAll('.theme-preset').forEach(preset => {
+            preset.addEventListener('click', function () {
+                // Remove active class from all presets
+                document.querySelectorAll('.theme-preset').forEach(p => {
+                    p.classList.remove('active');
+                });
+
+                // Add active class to clicked preset
+                this.classList.add('active');
+
+                // Get color data
+                const primary = this.dataset.primary;
+                const secondary = this.dataset.secondary;
+                const success = this.dataset.success;
+                const danger = this.dataset.danger;
+                const warning = this.dataset.warning;
+                const info = this.dataset.info;
+                const dark = this.dataset.dark;
+
+                // Apply colors
+                document.documentElement.style.setProperty('--primary', primary);
+                document.documentElement.style.setProperty('--secondary', secondary);
+                document.documentElement.style.setProperty('--success', success);
+                document.documentElement.style.setProperty('--danger', danger);
+                document.documentElement.style.setProperty('--warning', warning);
+                document.documentElement.style.setProperty('--info', info);
+                document.documentElement.style.setProperty('--dark', dark);
+
+                // Update input fields
+                document.getElementById('primary-color').value = primary;
+                document.getElementById('secondary-color').value = secondary;
+                document.getElementById('success-color').value = success;
+                document.getElementById('danger-color').value = danger;
+                document.getElementById('warning-color').value = warning;
+                document.getElementById('info-color').value = info;
+                document.getElementById('dark-color').value = dark;
+
+                // Update previews
+                document.getElementById('primary-preview').style.backgroundColor = primary;
+                document.getElementById('secondary-preview').style.backgroundColor = secondary;
+                document.getElementById('success-preview').style.backgroundColor = success;
+                document.getElementById('danger-preview').style.backgroundColor = danger;
+                document.getElementById('warning-preview').style.backgroundColor = warning;
+                document.getElementById('info-preview').style.backgroundColor = info;
+                document.getElementById('dark-preview').style.backgroundColor = dark;
+            });
+        });
+
+        // Helper function to validate hex color
+        function isValidHex(color) {
+            return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color);
+        }
+    </script>
 </body>
+
 </html>
